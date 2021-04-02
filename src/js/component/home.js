@@ -15,7 +15,7 @@ export function Home() {
 				id: tasksArray.length
 			};
 			setTasksArray([...tasksArray, newToDo]);
-			console.log(newToDo);
+			setNewTask("");
 		}
 	};
 
@@ -23,8 +23,10 @@ export function Home() {
 		const result = tasksArray.filter(task => task.id != id);
 		setTasksArray(result);
 	};
+
 	return (
 		<div className="text-center mt-5">
+			<h1>My Happy To Do List</h1>
 			<input
 				type="text"
 				value={newTask}
@@ -32,20 +34,26 @@ export function Home() {
 				onKeyUp={saveTask}
 			/>
 			<ul>
-				{tasksArray.map((task, i) => {
-					return (
-						<li key={i}>
-							{task.label}{" "}
-							<span
-								type="button"
-								onClick={() => deleteTask(task.id)}>
-								{" "}
-								x{" "}
-							</span>
-						</li>
-					);
-				})}
+				{tasksArray.length > 0 ? (
+					tasksArray.map((task, i) => {
+						return (
+							<li key={i}>
+								{task.label}{" "}
+								<span
+									type="button"
+									onClick={() => deleteTask(task.id)}>
+									{" "}
+									<img src="https://variety.com/wp-content/uploads/2018/10/taylor_swift.png?w=979" />{" "}
+								</span>
+							</li>
+						);
+					})
+				) : (
+					<li>no tasks, add a task</li>
+				)}
 			</ul>
+			<p>{tasksArray.length} items left</p>
+			<h2>........ thank you for using my app</h2>
 		</div>
 	);
 }
